@@ -404,4 +404,4 @@ export default {
   shouldMorphCallbacks,
   didMorphCallbacks
 }
-export * from './registerController';
+export * from './registerController'

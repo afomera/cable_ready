@@ -8,6 +8,7 @@ module CableReady
   # SEE: https://github.com/socketry/thread-local/tree/master/guides/getting-started
   class Channels
     extend Thread::Local
+    include CableReady::StreamName
 
     attr_accessor :operations
 
@@ -17,7 +18,8 @@ module CableReady
     end
 
     def [](identifier)
-      @channels[identifier] ||= CableReady::Channel.new(identifier)
+      stream_name = stream_name_from(identifier)
+      @channels[stream_name] ||= CableReady::Channel.new(stream_name)
     end
 
     def broadcast(*identifiers, clear: true)
